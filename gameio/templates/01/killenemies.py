@@ -1,3 +1,6 @@
+import sys, json
+from typing import *
+
 ########################################################################################
 #                                       STAGE 1                                        #
 #                                                                                      #
@@ -9,7 +12,7 @@
 ########################################################################################
 
 class Enemy:
-    def __init__(health: int) -> None:
+    def __init__(self, health: int) -> None:
         self.health = health
 
 def solve(enemies: List[Enemy]) -> List[Enemy]:
@@ -25,4 +28,8 @@ def solve(enemies: List[Enemy]) -> List[Enemy]:
 
 
 if __name__ == '__main__':
-    pass
+    data = json.load(sys.stdin)
+    enemies = [Enemy(data["startingHealth"]) for _ in range(data["numEnemies"])]
+    result = solve(enemies)
+
+    print(",".join(str(enemy.health) for enemy in result), end="")

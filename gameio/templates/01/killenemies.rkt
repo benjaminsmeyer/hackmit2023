@@ -1,5 +1,7 @@
 #lang racket
 
+(require json)
+
 #|
                                     STAGE 1
 
@@ -25,4 +27,17 @@
 
   enemies)
 
+(module+ main
+  (define input-json (read-json (current-input-port)))
+  (define num-enemies (hash-ref input-json 'numEnemies))
+  (define starting-health (hash-ref input-json 'startingHealth))
+  (define enemies
+    (for/list ([_ (in-range num-enemies)])
+      (enemy starting-health)))
+  (define result (solve enemies))
 
+  (define result-strs
+    (for/list ([enemy result])
+      (number->string (enemy-health enemy))))
+  (define result-str (string-join result-strs ","))
+  (display result-str))
