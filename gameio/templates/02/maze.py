@@ -15,49 +15,15 @@ def solve(start_row: int, start_col: int, maze: List[List[str]]) -> List[str]:
     # Hint: Think about depth first search and how it could be applied to this problem.
 
     ### WRITE YOUR CODE HERE ###
-
+    pass
     ### END OF YOUR CODE HERE ###
 
 
 if __name__ == '__main__':
     data = json.load(sys.stdin)
 
-    text = """##############################
-        #
-    # ##### ## ##### ## ## ## ####
-    # ##### ## ##### ## ## ## ####
-    #    ## ##    ## ## ## ##    #
-    # ## ######## ############## #
-    # ## ######## ############## #
-    # ## ##                   ## #
-    # ## ## ## ##### ######## ## #
-    # ## ## ## ##### ######## ## #
-    # ## ## ## ##          ## ## #
-    # ## ##### ## ## ######## ## #
-    # ## ##### ## ## ######## ## #
-    # ##    ## ## ##       ## ## #
-    # ## ## ##### ## ######## ## #
-    # ## ## ##### ## ######## ## #
-    # ## ##    ## ##       ## ## #
-    # ## ##### ## ##### ## ## ####
-    # ## ##### ## ##### ## ## ####
-    # ##    ## ##    ## ## ##    #
-    # ## ## ######## ## ## ## ## #
-    # ## ## ######## ## ## ## ## #
-    # ## ##       ##    ## ## ## #
-    # ## ## ##### ##### ######## #
-    # ## ## ##### ##### ######## #
-    # ## ##    ## ##          ## #
-    #### ######## ######## ## ## #
-    #### ######## ######## ## ## #
-    #       ##          ## ## ## #
-    ###################### #######"""
-
-    # Split the text into lines
-    lines = text.split('\n')
-
     # Convert each line into a list of characters
-    maze = [list(line) for line in lines]
+    maze = [list(line) for line in data]
 
     start_row = 1
     start_col = 0
