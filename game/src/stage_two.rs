@@ -29,7 +29,9 @@ const TILE_SIZE: f32 = 10.;
 const PLAYER_SIZE: f32 = 3.;
 const CAMERA_INTERPOLATION: f32 = 0.1;
 
-const PLAYER_START: (f32, f32) = (-300. + TILE_SIZE, -300.);
+const PLAYER_START: (f32, f32) = (-300.0, -300.0 - TILE_SIZE);
+
+const WINNING_POSITION: (f32, f32) = (-80.0, -590.0);
 
 const MAZE: &str = "##############################
 .............................#
@@ -71,6 +73,7 @@ impl Plugin for StageTwoPlugin {
             .add_systems(Update, camera_follow_player)
             .add_systems(Update, check_player_collision)
             .add_systems(Update, move_player)
+            .add_systems(Update, check_win)
             .insert_resource(ClearColor(Color::BLACK));
     }
 }
@@ -178,8 +181,8 @@ fn render_maze(
                             8. + ((i as f32 / MAZE.lines().count() as f32) * 3.),
                         ))),
                         transform: Transform::from_translation(Vec3::new(
-                            i as f32 * TILE_SIZE - 300.,
                             j as f32 * TILE_SIZE - 300.,
+                            -(i as f32) * TILE_SIZE - 300.,
                             0.,
                         )),
                         ..default()
@@ -233,6 +236,25 @@ fn check_player_collision(
     }
 }
 
+fn check_win(
+    player_query: Query<&Transform, (With<Player>, Without<Tile>)>,
+    mut tiles_query: Query<&mut Handle<ColorMaterial>, With<Tile>>,
+    mut materials: ResMut<Assets<ColorMaterial>>,
+) {
+    let player_transform = player_query.single();
+
+    if player_transform
+        .translation
+        .distance(Vec3::new(WINNING_POSITION.0, WINNING_POSITION.1, 0.0))
+        < 0.8
+    {
+        for tile_color_mat in tiles_query.iter_mut() {
+            let color_mat = materials.get_mut(&tile_color_mat).unwrap();
+            color_mat.color.set_g(40.0);
+        }
+    }
+}
+
 fn move_player(
     mut player_query: Query<&mut Transform, With<Player>>,
     mut input: ResMut<StageInput>,
@@ -242,7 +264,7 @@ fn move_player(
     if let Some(position) = input.0.get(0) {
         player_transform.translation = player_transform
             .translation
-            .lerp(Vec3::new(position.x, position.y, 0.0), 0.2);
+            .lerp(Vec3::new(position.x, position.y, 0.0), 0.5);
 
         if player_transform.translation.distance(position.extend(0.0)) < 0.8 && input.0.len() >= 2 {
             input.0.remove(0);
