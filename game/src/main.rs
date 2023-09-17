@@ -1,6 +1,7 @@
 mod stage_one;
+mod stage_two;
 
-use crate::stage_one::StageOnePlugin;
+use crate::{stage_one::StageOnePlugin, stage_two::StageTwoPlugin};
 use bevy::prelude::*;
 use clap::Parser;
 
@@ -19,14 +20,14 @@ struct GameInput(String);
 fn main() {
     let args = Args::parse();
 
-    let plugin = match args.stage {
-        1 => StageOnePlugin,
-        _ => panic!("Unknown stage: {}", args.stage),
-    };
+    let mut app = App::new();
 
-    App::new()
-        .insert_resource(GameInput(args.input))
-        .add_plugins(DefaultPlugins)
-        .add_plugins(plugin)
-        .run();
+    (match args.stage {
+        1 => app.add_plugins(StageOnePlugin),
+        2 => app.add_plugins(StageTwoPlugin),
+        _ => panic!("Unknown stage: {}", args.stage),
+    })
+    .insert_resource(GameInput(args.input))
+    .add_plugins(DefaultPlugins)
+    .run();
 }
