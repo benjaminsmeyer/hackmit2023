@@ -132,14 +132,21 @@
            (port->string stderr-port)))
 
   (define user-output (port->string stdout-port))
+  (println user-output)
 
   (define binary-name "./game")
 
-  (subprocess #f #f #f
-              "./game"
-              "--input"
-              (~s user-output)
-              "--stage"
-              stage)
+  (define-values (game-program game-stdout __ game-stderr)
+    (subprocess #f #f #f
+                "./game"
+                "--input"
+                user-output
+                "--stage"
+                "1"))
+
+  (subprocess-wait game-program)
+
+  (println (subprocess-status game-program))
+  (println (port->string game-stderr))
 
   (void))
