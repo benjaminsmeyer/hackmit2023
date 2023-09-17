@@ -1,4 +1,5 @@
-import json
+import json, sys
+from typing import *
 
 ########################################################################################
 #                                       STAGE 0                                        #
@@ -12,7 +13,7 @@ import json
 # see that you are quick-minded. Complete this function that sums two numbers
 # together.
 
-def add(a, b):
+def add(a: int, b: int) -> int:
     # TODO: Add two numbers
     # Hint: Use the + operator for addition
 
@@ -21,8 +22,8 @@ def add(a, b):
     ### END OF YOUR CODE HERE ###
 
 if __name__ == "__main__":
-    input_json = json.loads(input())  # Read JSON input from standard input
+    input_json = json.load(sys.stdin)  # Read JSON input from standard input
     a = input_json['a']
     b = input_json['b']
     result = add(a, b)
-    print(result)
+    print(result,end="")
