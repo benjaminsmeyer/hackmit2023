@@ -25,7 +25,7 @@ if __name__ == '__main__':
     data = json.load(sys.stdin)
 
     # Convert each line into a list of characters
-    maze = [list(line) for line in data.maze]
+    maze = [list(line) for line in data["maze"]]
 
     start_row = data["startRow"]
     start_col = data["startCol"]
