@@ -12,7 +12,7 @@
 (struct++ stage
           ([name symbol?]
            [number string?]
-           [(languages (hash)) hash?])
+           [(templates (hash)) hash?])
           #:transparent)
 
 (define supported-languages
@@ -31,7 +31,7 @@
 
 (define stages
   (for/list ([stage stages-info])
-    (define languages
+    (define templates
       (for/hash ([language supported-languages])
         (define lang-name (language-name language))
         (define filename (~a (stage-name stage)
@@ -43,7 +43,7 @@
                             ,(stage-number stage)
                             ,filename)
                           "/"))
+        
+        (values lang-name (cons filename filepath))))
 
-        (values lang-name filepath)))
-
-    (set-stage-languages stage languages)))
+    (set-stage-templates stage templates)))
