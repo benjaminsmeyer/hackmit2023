@@ -32,4 +32,4 @@ if __name__ == '__main__':
 
     result = solve(start_row, start_col, maze)
 
-    print("\n".join(result), end="")
+    print(",".join(result), end="")
