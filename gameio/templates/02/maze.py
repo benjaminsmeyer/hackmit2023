@@ -4,9 +4,11 @@ from typing import *
 ########################################################################################
 #                                       STAGE 2                                        #
 #                                                                                      #
-#   Welcome to the second problem, young explorer! Our next journey brings us to our   #
-#   maze where we have to find the path that leads us out. Write the algorithm to      #
-#   find a way out. Good luck!                                                         #
+#   As you explored greater swaths of this large world, you've become lost in a        #
+#   cave. Luckily, you've come across a map of the maze, represented as a 2D list of   #
+#   strings, but you can't take it with you! You must thus note down each direction    #
+#   that leads you out from your current position, as "N", "E", "S", or "W" for each   #
+#   turn. Devise the path that leads you out. Good luck!                               #
 #                                                                                      #
 ########################################################################################
 
@@ -23,10 +25,10 @@ if __name__ == '__main__':
     data = json.load(sys.stdin)
 
     # Convert each line into a list of characters
-    maze = [list(line) for line in data]
+    maze = [list(line) for line in data.maze]
 
-    start_row = 1
-    start_col = 0
+    start_row = data["startRow"]
+    start_col = data["startCol"]
 
     result = solve(start_row, start_col, maze)
 
