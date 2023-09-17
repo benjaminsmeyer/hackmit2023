@@ -142,7 +142,7 @@
                 "--input"
                 user-output
                 "--stage"
-                "1"))
+                stage))
 
   (subprocess-wait game-program)
 
