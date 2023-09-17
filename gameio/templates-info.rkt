@@ -6,7 +6,8 @@
 
 (struct++ language
           ([name symbol?]
-           [extension string?])
+           [extension string?]
+           [shell-command string?])
           #:transparent)
 
 (struct++ stage
@@ -16,10 +17,12 @@
           #:transparent)
 
 (define supported-languages
-  (list (language++ #:name 'python
-                    #:extension "py")
-        (language++ #:name 'racket
-                    #:extension "rkt")))
+  (list (language++ #:name          'python
+                    #:extension     "py"
+                    #:shell-command "python")
+        (language++ #:name          'racket
+                    #:extension     "rkt"
+                    #:shell-command "racket")))
 
 (define stages-info
   (list (stage++ #:name 'add
@@ -34,16 +37,22 @@
     (define templates
       (for/hash ([language supported-languages])
         (define lang-name (language-name language))
-        (define filename (~a (stage-name stage)
-                             "."
-                             (language-extension language)))
+        (define language-filename (~a (stage-name stage)
+                                      "."
+                                      (language-extension language)))
+        (define json-filename (~a (stage-name stage) ".json"))
         (define templates-directory "templates")
         (define filepath (string-join
                           `(,templates-directory
                             ,(stage-number stage)
-                            ,filename)
+                            ,language-filename)
                           "/"))
-        
-        (values lang-name (cons filename filepath))))
+        (define json-filepath (string-join
+                               `(,templates-directory
+                                 ,(stage-number stage)
+                                 ,json-filename)
+                               "/"))
+
+        (values lang-name (list language-filename filepath json-filepath))))
 
     (set-stage-templates stage templates)))
