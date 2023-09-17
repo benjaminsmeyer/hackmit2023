@@ -29,7 +29,7 @@
                  #:number "00")
         (stage++ #:name 'killenemies
                  #:number "01")
-        (stage++ #:name 'findway
+        (stage++ #:name 'maze
                  #:number "02")))
 
 (define stages
