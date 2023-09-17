@@ -35,11 +35,12 @@ has.
 
 We used Rust and the Bevy game engine to implement the visualizations
 of each stage, taking in the user code's output and displaying it in
-an intuitive way.
+an intuitive way. The Rust code is contained in the `game/` directory.
 
 We used Racket to implement the user-facing command-line interface,
 which allows users to generate templates for a chosen stage and
-language, and run their code that is then visualized.
+language, and run their code that is then visualized. The Racket code
+is contained in the `gameio/` directory.
 
 ## Usage
 
