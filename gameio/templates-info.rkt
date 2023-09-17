@@ -22,7 +22,9 @@
                     #:extension "rkt")))
 
 (define stages-info
-  (list (stage++ #:name 'killenemies
+  (list (stage++ #:name 'add
+                 #:number "00")
+        (stage++ #:name 'killenemies
                  #:number "01")
         (stage++ #:name 'findway
                  #:number "02")))
