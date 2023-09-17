@@ -26,11 +26,11 @@
 
 (define stages-info
   (list (stage++ #:name 'add
-                 #:number "00")
+                 #:number "0")
         (stage++ #:name 'killenemies
-                 #:number "01")
+                 #:number "1")
         (stage++ #:name 'maze
-                 #:number "02")))
+                 #:number "2")))
 
 (define stages
   (for/list ([stage stages-info])
